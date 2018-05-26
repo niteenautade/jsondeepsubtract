@@ -16,7 +16,7 @@ var jsonDeepSubtract = function (oldObj,newObj){
       }
     }
     else if(typeof(newObj[key])=="object" && !Array.isArray(newObj[key])){
-      final[key]=subtract(oldObj[key],newObj[key])
+      final[key]=jsonDeepSubtract(oldObj[key],newObj[key])
     }
     else if(typeof(newObj[key])=="object" && Array.isArray(newObj[key])){
       var arrLength = newObj[key].length
@@ -28,7 +28,7 @@ var jsonDeepSubtract = function (oldObj,newObj){
           }
         }
         else if(typeof(arrEl)=="object" && !Array.isArray(arrEl)){
-          var obj = subtract(oldObj[key][i],arrEl)
+          var obj = jsonDeepSubtract(oldObj[key][i],arrEl)
           final[key].push(obj)
         }
       })
