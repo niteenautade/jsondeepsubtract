@@ -1,6 +1,6 @@
 {
   "name": "jsondeepsubtract",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Deep subtracts two javascript objects",
   "main": "index.js",
   "scripts": {
