@@ -1,4 +1,4 @@
-var jsonDeepSubtract = function (oldObj,newObj){
+var jsonDeepSubtract = function (oldObj={},newObj={}){
   var final = {};
   Object.keys(newObj).forEach((key)=>{
     if(["string","number"].includes(typeof(newObj[key]))){
@@ -18,13 +18,23 @@ var jsonDeepSubtract = function (oldObj,newObj){
       final[key]=[]
       newObj[key].forEach( (arrEl,i) => {
         if(typeof(arrEl)!="object"){
-          if(arrEl != oldObj[key][i]){
-              final[key].push(arrEl)
+          if(oldObj[key] && oldObj[key][i]){
+              if(arrEl != oldObj[key][i]){
+                final[key].push(arrEl)
+              }
+          }
+          else{
+                final[key].push(arrEl)
           }
         }
         else if(typeof(arrEl)=="object" && !Array.isArray(arrEl)){
-          var obj = jsonDeepSubtract(oldObj[key][i],arrEl)
-          final[key].push(obj)
+          if(oldObj[key] && oldObj[key][i]){
+            var obj = jsonDeepSubtract(oldObj[key][i],arrEl)
+            final[key].push(obj)
+          }
+          else{
+            final[key].push(arrEl)
+          }
         }
       })
     }
